@@ -4,17 +4,19 @@ import cv2
 import cv2_rgb
 import numpy as np
 
+
 def test_other_cv2_methods():
     assert cv2_rgb.cvtColor == cv2.cvtColor
     assert cv2_rgb.blur == cv2.blur
     assert cv2_rgb.Sobel == cv2.Sobel
+
 
 def test_imread_imwrite():
     lena_path = "tests/lena.png"
     img_bgr = cv2.imread(lena_path)
     img_rgb = cv2_rgb.imread(lena_path)
     assert img_bgr is not None and img_rgb is not None
-    assert (img_bgr[:,:,::-1] == img_rgb).all()
+    assert (img_bgr[:, :, ::-1] == img_rgb).all()
 
     path_bgr, path_rgb = "bgr.png", "rgb.png"
     cv2.imwrite(path_bgr, img_bgr)
@@ -24,6 +26,7 @@ def test_imread_imwrite():
         assert f_bgr.read() == f_rgb.read()
     os.remove(path_bgr)
     os.remove(path_rgb)
+
 
 def test_imdecode_imencode():
     rng = np.random.default_rng()
@@ -38,7 +41,8 @@ def test_imdecode_imencode():
     img_decoded_bgr = cv2.imdecode(buf_bgr, cv2.IMREAD_COLOR)
     img_decoded_rgb = cv2_rgb.imdecode(buf_rgb, cv2.IMREAD_COLOR)
 
-    assert (img_decoded_bgr[:,:,::-1] == img_decoded_rgb).all()
+    assert (img_decoded_bgr[:, :, ::-1] == img_decoded_rgb).all()
+
 
 def test_video_capture():
     file_path = "tests/video.mp4"
@@ -51,7 +55,7 @@ def test_video_capture():
     ret_rgb, frame_rgb = cap_rgb.read()
 
     assert ret_bgr is True and ret_rgb is True
-    assert (frame_bgr[:,:,::-1] == frame_rgb).all()
+    assert (frame_bgr[:, :, ::-1] == frame_rgb).all()
 
     cap_bgr.grab()
     cap_rgb.grab()
@@ -60,4 +64,4 @@ def test_video_capture():
     ret_rgb, frame_rgb = cap_rgb.retrieve()
 
     assert ret_bgr is True and ret_rgb is True
-    assert (frame_bgr[:,:,::-1] == frame_rgb).all()
+    assert (frame_bgr[:, :, ::-1] == frame_rgb).all()
