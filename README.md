@@ -1,4 +1,5 @@
 # OpenCV RGB
+![example workflow](https://github.com/bsmietanka/cv2_rgb/actions/workflows/tests.yml/badge.svg)
 
 This project is a python wrapper over OpenCV library that overrides IO operations so that they work on RGB (not BGR) images by default. Main goal is to mitigate all those pesky bugs when combining operations from multiple computer vision libraries.
 
